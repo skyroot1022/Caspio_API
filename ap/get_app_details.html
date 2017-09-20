@@ -1,0 +1,39 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>    
+
+    <input type="hidden" id="profileName" value="profileA">
+    <label>External Key</label>
+    <input type="text" id="externalKey"/>
+    <input type="button" id="submit" value="Submit"> 
+    
+    <p id="result"></p>
+
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('#submit').click(function(event) {
+            event.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: 'get_app_details.php',
+                data: {
+                    profileName: $('#profileName').val(),
+                    externalKey: $('#externalKey').val(),
+                },
+                dataType: 'text',
+                success: function (data) {
+                    $('#result').html(data);
+                },
+                error: function (data) {
+                    $('#result').html('Error:<br>'.data);
+                }
+            });
+        });
+    });
+</script> 
+</html>
